@@ -20,7 +20,7 @@ output:
 ```{r}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(haven, ggplot2,knitr, pander,descr,foreign,dplyr,Hmisc,psych,GPArotation,plyr, dplyr, rmarkdown)
-BHPS <- read.csv(file = "/Applications/IODS-final/data/BHPS.csv", sep=",", header =TRUE)
+BHPS <- read.csv(file = "/Applications/IODS-final/data/BHPS2.csv", sep=",")
 BHPS$X <- NULL
 ```
 ## Information about the data
@@ -31,9 +31,10 @@ describe(BHPS)
 
 ## Variables
 ```{r}
-variables <- matrix(c("QUESTION ASKED", "Does your health in any way limit your daily activities compared to most people of your age?","If you could choose, would you stay here in your present home or would you prefer to move somewhere else?","Does your accommodation have any of the following problems? Vandalism or crime in the area","Education", "Have you recently felt capable of making decisions about things?","Have you recently felt you couldn’t overcome your difficulties?","Have you recently been able to face up to problems?", "Tell me which things you (and your household) have or do? Pay for a week’s annual holiday away from home.","Would you like to be able to pay for a week’s annual holiday away from home, but must do without because you cannot afford it?", "Tell me which things you (and your household) have or do? Buy new, rather than second hand, clothes.","Would you like to be able to buy new, rather than second hand, clothes, but must do without because you cannot afford it?","Tell me which things you (and your household) have or do? Have friends or family for a drink or meal at least once a month","Have you recently felt that you were playing a useful part in things?", "Did you vote in this (past) year’s general election?","How dissatisfied or satisfied are you with your life overall?"), ncol = 1, byrow =TRUE)
+
+variables <- matrix(c("QUESTION ASKED","If you could choose, would you stay here in your present home or would you prefer to move somewhere else?","Does your accommodation have any of the following problems? Vandalism or crime in the area", "Tell me which things you (and your household) have or do? Pay for a week’s annual holiday away from home.","Would you like to be able to pay for a week’s annual holiday away from home, but must do without because you cannot afford it?", "Tell me which things you (and your household) have or do? Buy new, rather than second hand, clothes.","Would you like to be able to buy new, rather than second hand, clothes, but must do without because you cannot afford it?","Tell me which things you (and your household) have or do? Have friends or family for a drink or meal at least once a month","How dissatisfied or satisfied are you with your life overall?"), ncol = 1, byrow =TRUE)
 colnames(variables) <- c("BHPS 2000")
-rownames(variables) <- c("VARIABLE NAME", "JHLLT", "JLKMOVE", "JHSPRBQ","JQFEDHI", "JGHQD", "JGHQF", "JGHQH","JHSCANB" , "JHSCNTB","JHSCAND", "JHSCNTD", "JHSCANF", "JGHQC", "JVOTE7", "JLFSATO" )
+rownames(variables) <- c("VARIABLE NAME", "JLKMOVE", "JHSPRBQ","JHSCANB" , "JHSCNTB","JHSCAND", "JHSCNTD", "JHSCANF", "JLFSATO" )
 variables <- as.table(variables)
 variables
 ```
@@ -41,7 +42,8 @@ variables
 
 #### General information about the variables
 ```{r}
-summary(BHPS)
+summary(BHPS, digits = 2)
+
 ```
 
 
@@ -51,17 +53,13 @@ Next I will present a graphical overview of the dataset "learning2014". The grap
 
 library(GGally)
 library(ggplot2)
+BHPS$JHSCANB <- as.character(BHPS$JHSCANB)
+BHPS$JHSCANB[BHPS$JHSCANB == 1] <- "YES"
+BHPS$JHSCANB[BHPS$JHSCANB == 2] <- "NO"
+BHPS$JHSCANB[BHPS$JHSCANB < 0] <- "NA"
 
-hist(BHPS$JHLLT)
-BHPS$JHLLT[BHPS$JHLLT == 1] <- "yes"
-BHPS$JHLLT[BHPS$JHLLT == 2] <- "no"
-BHPS$JHLLT <- as.character(BHPS$JHLLT)
-
-p <- ggpairs(BHPS, mapping = aes(col=JHLLT, alpha = 0.3), lower = list(combo = wrap("facethist", bins = 20)))
+p <- ggpairs(BHPS, mapping = aes(col=JHSCANB, alpha = 0.01), lower = list(combo = wrap("facethist", bins = 5)))
 p
-
-
-pairs(BHPS)
 
 
 ```
@@ -69,8 +67,11 @@ pairs(BHPS)
 
 
 ##Let’s take a look at the relationship graphically: attitude indeed seems to have certain correlations with the points, unlike learning approach (deep). Surprinsingly the age and learning approach surface seems to have a small correlation among the male (and slightly with female) students. The older the student is the less he is likely to use learning approach “surface”. Similar correlation did not happen with other two learning approaches (deep and strategic).
+JGHQC = experience of valuable/useful, JHSCANF = dinner/drink with friends/familu, JGHQF = capability to overcome difficultie, JLKMOVE = capability to move, JHLLT = health limits
 ```{r}
-p1 <- ggplot(learning2014, aes(x = attitude, y = points, col = gender))
+library(ggplot2)
+
+p1 <- ggplot(BHPS, aes(x = JGHQC, y = JGHQF, col = JHLLT))
 # define the visualization type (points)
 p2 <- p1 + geom_point()
 # draw the plot
@@ -145,7 +146,6 @@ p8
 ```
 
 
-
 ## and conclusions
 
 ## References 
@@ -157,4 +157,6 @@ Frost, J. (2013). Regression Analysis: How Do I Interpret R-squared and Assess t
 Nuzzo, R. (2014). Statistical errors. P values, ‘the gold standard’ of statistical validity, are not as reliable as many scientist assume. Nature. 306. 150-152.
 
 Vehkalahti, K. (2015). The relationship between learning approaches and students’ achievements in an introductory statistics course in Finland. 60th World Statistics Congress, ISI2015. Rio de Janeiro.
+
+
 
