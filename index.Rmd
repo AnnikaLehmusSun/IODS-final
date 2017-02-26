@@ -16,6 +16,7 @@ output:
 
 ##Data, year and variables and research question: does x, y, c and b affect one's satisfaction in life?  
 ## bases the knowledfe of Martha Nussbaums list of capabilities that affects people's well-being: life satisfaction as indicator of subjective well-being and the other variables indicators of objective (capability) well-being factors. data wrangling can be found from HERE 
+## The data wrangling for the analysis can be found from [here](https://github.com/AnnikaLehmusSun/IODS-final/blob/master/data/BHPS_create%20.R) 
 
 ```{r}
 if (!require("pacman")) install.packages("pacman")
