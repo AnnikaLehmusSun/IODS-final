@@ -1,7 +1,7 @@
 ---
-title: "index.Rmd"
+title: "Final assignment"
 author: "Annika Lehmus-Sun"
-date: "February, 25, 2017"
+date: "February, 27, 2017"
 email: "annika.lehmus@helsinki.fi"
 output:
   html_document:
@@ -14,7 +14,7 @@ output:
     code_folding: hide
 ---
 
-##Data, year and variables and research question: does x, y, c and b affect one's satisfaction in life?  
+#Data, year and variables and research question: does x, y, c and b affect one's satisfaction in life?  
 ## bases the knowledfe of Martha Nussbaums list of capabilities that affects people's well-being: life satisfaction as indicator of subjective well-being and the other variables indicators of objective (capability) well-being factors. data wrangling can be found from HERE 
 ## The data wrangling for the analysis can be found from [here](https://github.com/AnnikaLehmusSun/IODS-final/blob/master/data/BHPS_create%20.R) 
 
@@ -24,13 +24,13 @@ pacman::p_load(haven, ggplot2,knitr, pander,descr,foreign,dplyr,Hmisc,psych,GPAr
 BHPS2 <- read.csv(file = "/Applications/IODS-final/data/BHPS2.csv", sep=",")
 BHPS2$X <- NULL
 ```
-## Information about the data
+# Information about the data
 ```{r}
 dim(BHPS2)
 describe(BHPS2)
 ```
 
-## Variables
+### Variables
 ```{r}
 
 variables <- matrix(c("QUESTION ASKED","If you could choose, would you stay here in your present home or would you prefer to move somewhere else?","Does your accommodation have any of the following problems? Vandalism or crime in the area", "Tell me which things you (and your household) have or do? Pay for a week’s annual holiday away from home.","Would you like to be able to pay for a week’s annual holiday away from home, but must do without because you cannot afford it?", "Tell me which things you (and your household) have or do? Buy new, rather than second hand, clothes.","Would you like to be able to buy new, rather than second hand, clothes, but must do without because you cannot afford it?","Tell me which things you (and your household) have or do? Have friends or family for a drink or meal at least once a month","How dissatisfied or satisfied are you with your life overall?"), ncol = 1, byrow =TRUE)
@@ -59,7 +59,7 @@ p <- ggpairs(BHPS2)
 p
 
 ```
-##Based on the graphical overview of the data, it seems that attitude correlates greatly with points. Let’s take a closer look of all the variables:
+###Based on the graphical overview of the data, it seems that attitude correlates greatly with points. Let’s take a closer look of all the variables:
 
 
 ##Let’s take a look at the relationship graphically: attitude indeed seems to have certain correlations with the points, unlike learning approach (deep). Surprinsingly the age and learning approach surface seems to have a small correlation among the male (and slightly with female) students. The older the student is the less he is likely to use learning approach “surface”. Similar correlation did not happen with other two learning approaches (deep and strategic).
@@ -100,7 +100,7 @@ Model3 <- lm(JLFSATO~JLKMOVE+JHSPRBQ+JHSCNTB+JHSCANF+JHSCNTD, data = BHPS2)
 summary(Model3)
 ```
 
-Next I will provide following diagnostic plots: (1) Residuals vs Fitted values, (2) Normal QQ-plot and (3) Residuals vs Leverage. Residuals vs fitted values plot tells us how well the model (in this case model2) fits the data, and it could fit better. We find pretty equally spread residuals around horizontal line in Fitted values- plot, it is a indication that there is not non-linear relationship between exam points and attitude. In comparison, normal QQ-plot shows us if the residuals are normally distributed. According to the Tehroeticial Quonatiles - plot (below) shows how residuals are lined well on the straight dashed line, which means that they are quite normally distributed. The last one, Residual vs leverage plot shows possible influential cases. According to the Levarage -plot shows that there is not influential case(s), you can easily see that all the cases are inside Cook’s distance lines (if there was an influential case, it would show in the upper and lower right corner).
+###Next I will provide following diagnostic plots: (1) Residuals vs Fitted values, (2) Normal QQ-plot and (3) Residuals vs Leverage. Residuals vs fitted values plot tells us how well the model (in this case model2) fits the data, and it could fit better. We find pretty equally spread residuals around horizontal line in Fitted values- plot, it is a indication that there is not non-linear relationship between exam points and attitude. In comparison, normal QQ-plot shows us if the residuals are normally distributed. According to the Tehroeticial Quonatiles - plot (below) shows how residuals are lined well on the straight dashed line, which means that they are quite normally distributed. The last one, Residual vs leverage plot shows possible influential cases. According to the Levarage -plot shows that there is not influential case(s), you can easily see that all the cases are inside Cook’s distance lines (if there was an influential case, it would show in the upper and lower right corner).
 
 JLKMOVE       If you could choose, would you stay here in your present home or would you prefer to move somewhere else?                     
 JHSPRBQ       Does your accommodation have any of the following problems? Vandalism or crime in the area                                    
@@ -142,8 +142,6 @@ Nuzzo, R. (2014). Statistical errors. P values, ‘the gold standard’ of stati
 Vehkalahti, K. (2015). The relationship between learning approaches and students’ achievements in an introductory statistics course in Finland. 60th World Statistics Congress, ISI2015. Rio de Janeiro.
 
 
-
-## creating data BHPS notes
 
 
 
