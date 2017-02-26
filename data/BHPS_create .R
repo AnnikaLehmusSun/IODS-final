@@ -17,16 +17,17 @@ dim(BHPS)
 describe(BHPS)
 
 
-#Removing NAs
+# Removing NAs
 complete.cases(BHPS)
-BHPS2 <- filter(BHPS, complete.cases(BHPS))
+data.frame(BHPS, comp = complete.cases(BHPS))
+BHPS2 <- filter(BHPS, TRUE, complete.cases(BHPS))
+
 dim(BHPS2)
 describe(BHPS2)
-
+summary(BHPS2)
 
 write.csv(BHPS2, file = "/Applications/IODS-final/data/BHPS2.csv")
 BHPS2 <- read.csv(file = "/Applications/IODS-final/data/BHPS2.csv", sep=",")
 BHPS2
-dim(BHPS2)
 
 
