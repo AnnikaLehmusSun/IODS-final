@@ -3,15 +3,8 @@ title: "Final assignment"
 author: "Annika Lehmus-Sun"
 date: "February, 27, 2017"
 email: "annika.lehmus@helsinki.fi"
-output:
-  html_document:
-    theme: cerulean
-    toc: true
-    toc_depth: 2
-    fig_caption: true
-    fig_width: 6
-    fig_height: 4
-    code_folding: hide
+output: html_document
+ 
 ---
 
 #THE DATA 
