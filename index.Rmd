@@ -1,8 +1,16 @@
 ---
 title: "Final assignment"
-author: "Annika Lehmus-Sun (annika.lehmus@helsinki.fi)"
+author: "Annika Lehmus-Sun, annika.lehmus@helsinki.fi"
 date: "February, 26, 2017"
-output: html_document
+output: 
+html_document:
+theme: cerulean
+toc: true
+toc_depth: 2
+fig_caption: true
+fig_width: 6
+fig_height: 4
+code_folding: hide
  
 ---
 
